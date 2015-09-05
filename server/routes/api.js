@@ -33,6 +33,18 @@ router.post('/users', function(req, res) {
   });
 });
 
+//update for single user
+router.put('/user/:id', function(req, res) {
+  var query = {"_id": req.params.id};
+  var update = req.body;
+  var options = {new: true};
+  User.findOneAndUpdate(query, update, options, function(err, user){
+    // console.log(superhero);
+    res.json(user);
+  });
+});
+
+
 // delete for single user
 router.delete('/user/:id', function(req, res) {
   var query = {"_id": req.params.id};
@@ -50,6 +62,13 @@ router.post("/practice/:id", function(req, res, next) {
   bt.translate(word, start, end, function(err, response) {
     res.json(response.translated_text);
   });
+});
+
+
+// get random words from generator
+router.get("/challenge/:id", function(req, res, next) {
+  var randomQuizWords = randomWords(20);
+  res.json(randomQuizWords);
 });
 
 

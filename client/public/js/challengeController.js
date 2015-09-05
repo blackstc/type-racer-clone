@@ -1,8 +1,22 @@
-angular.module("myApp").controller("PracticeController", ["$scope", "$http", "$routeParams",
+angular.module("myApp").controller("ChallengeController", ["$scope", "$http", "$routeParams",
 function($scope, $http, $routeParams) {
   var id = $routeParams.userID;
+  $scope.start = true;
+  var quizWords = [];
 
-  //post request to translate word based on given variables
+  $scope.createQuiz = function() {
+    getRandomWords();
+    $scope.start = false;
+  };
+
+  //gets 20 random words to be used in the quiz
+  getRandomWords = function() {
+    $http.get('/api/v1/challenge/' + id)
+    .success(function(data) {
+      $scope.words = data;
+    });
+  };
+
   $scope.translate = function() {
      $http.post("/api/v1/practice/" + id, $scope.newWord)
      .success(function(data) {
@@ -17,6 +31,7 @@ function($scope, $http, $routeParams) {
       $scope.user = data;
     });
   };
+
 
   $scope.getUser();
 }]);

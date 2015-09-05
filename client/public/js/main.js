@@ -14,5 +14,9 @@ myApp.config(function($routeProvider) {
     .when('/practice/:userID', {
       templateUrl: '../views/practice.html',
       controller: 'PracticeController'
+    })
+    .when('/challenge/:userID', {
+      templateUrl: '../views/challenge.html',
+      controller: 'ChallengeController'
     });
 });
