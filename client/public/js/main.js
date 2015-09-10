@@ -1,5 +1,10 @@
-// add scripts
+var myApp = angular.module('myApp', ['ngRoute']);
+angular.module('myModule', ['ui.bootstrap']);
 
-$(document).on('ready', function() {
-  console.log('sanity check!');
+myApp.config(function($routeProvider) {
+  $routeProvider
+    .when('/', {
+      templateUrl: '../views/api.html',
+      controller: 'TranslatorController'
+    });
 });
