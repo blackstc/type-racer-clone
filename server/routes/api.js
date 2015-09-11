@@ -10,6 +10,14 @@ router.get('/users', function(req, res) {
   });
 });
 
+// get SINGLE user
+router.get('/user/:id', function(req, res) {
+  var query = {"_id": req.params.id};
+  User.findOne(query, function(err, user){
+    res.json(user);
+  });
+});
+
 // post ALL users
 router.post('/users', function(req, res) {
   new User(req.body)

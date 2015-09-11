@@ -13,7 +13,7 @@
 <input type="text" ng-model='nameText'>
 <br>
 <div>
-  <table class="table">
+  <table class="table table-striped">
     <thead>
       <tr>
         <th>Name</th>
@@ -22,7 +22,7 @@
     </thead>
     <tbody>
       <tr ng-repeat="user in users| filter:nameText">
-        <td> {{ user.name }} </td>
+        <td><a href="/#/{{user._id}}">{{ user.name }}</a></td>
         <td>
           <button type="button" name="edit-button" ng-click="editUser()" class="btn btn-success btn-xs">Edit</button>
           <button type="button" name="delete-button" ng-click="deleteUser()" class="btn btn-danger btn-xs">X</button>

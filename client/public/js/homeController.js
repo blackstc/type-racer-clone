@@ -1,7 +1,7 @@
-angular.module("myApp").controller("TranslatorController", ["$scope", "$http",
+angular.module("myApp").controller("UserController", ["$scope", "$http",
 function($scope, $http) {
 
-  //get request to grab all superheros in the database
+  //get request to grab all users in the database
   $scope.getUsers = function() {
     $http.get('/api/v1/users')
     .success(function(data) {
@@ -37,7 +37,7 @@ function($scope, $http) {
     var id = this.user._id;
 
     //when edit button is clicked, add the data of the superhero to the input fields and delete the superhero from the database, because when the user clicks save, the new superhero will be added back with edited details
-    $scope.newUser.name = this.user.name;
+    $scope.newUser = {name: this.user.name};
     $("#first").focus();
     $http.delete('api/v1/user/' + id)
     .success(function(data) {

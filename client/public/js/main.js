@@ -4,7 +4,11 @@ angular.module('myModule', ['ui.bootstrap']);
 myApp.config(function($routeProvider) {
   $routeProvider
     .when('/', {
-      templateUrl: '../views/api.html',
-      controller: 'TranslatorController'
+      templateUrl: '../views/home.html',
+      controller: 'UserController'
+    })
+    .when('/:userID', {
+      templateUrl: '../views/profile.html',
+      controller: 'ProfileController'
     });
 });
