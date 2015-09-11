@@ -12,19 +12,19 @@
               <tbody>
                 <tr>
                   <td>Challenges Taken:</td>
-                  <td>Programming</td>
+                  <td>{{ user.challengesTaken }}</td>
                 </tr>
                 <tr>
                   <td>Challenged Passed:</td>
-                  <td>06/23/2013</td>
+                  <td>{{ user.challengesPassed }}</td>
                 </tr>
                 <tr>
                   <td>Challenges Failed:</td>
-                  <td>01/24/1988</td>
+                  <td>{{ user.challengesFailed }}</td>
                 </tr>
                 <tr>
                   <td>Words Translated:</td>
-                  <td>Male</td>
+                  <td>{{ user.words.length }}</td>
                 </tr>
                 <tr>
                   <td>Words Translated Correctly:</td>
@@ -38,8 +38,8 @@
             </table>
             <div class="form-group">
               <div>
-                <a href="/practice/{{user.id}}" class="btn btn-success align btn-width">Practice</a>
-                <a href="/play/{{user.id}}" class="btn btn-danger align btn-width">Challenge</a>
+                <a href="/#/practice/{{user._id}}" class="btn btn-success align btn-width">Practice</a>
+                <a href="/#/play/{{user._id}}" class="btn btn-danger align btn-width">Challenge</a>
               </div>
             </div>
           </div>

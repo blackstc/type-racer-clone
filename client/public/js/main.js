@@ -10,5 +10,9 @@ myApp.config(function($routeProvider) {
     .when('/:userID', {
       templateUrl: '../views/profile.html',
       controller: 'ProfileController'
+    })
+    .when('/practice/:userID', {
+      templateUrl: '../views/practice.html',
+      controller: 'PracticeController'
     });
 });
