@@ -1,6 +1,5 @@
 function checkWord(word1, word2) {
   //if the two words are the return true
-  debugger;
   if (word1.toUpperCase() === word2.toUpperCase()) {
     return true;
 
@@ -19,9 +18,15 @@ function checkWord(word1, word2) {
           characterOffset++;
         }
       }
-    } else {
+    } else if (word1.length < word2.length) {
       for (var j = 0; j < word2Characters.length; j++) {
         if (word2Characters[j] !== word1Characters[j - characterOffset]) {
+          characterOffset++;
+        }
+      }
+    } else {
+      for (var k = 0; k < word1Characters.length; k++) {
+        if (word1Characters[k] !== word2Characters[k]) {
           characterOffset++;
         }
       }

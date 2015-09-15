@@ -22,15 +22,15 @@
   <a class="btn btn-default" href="/#/{{user._id}}">Back</a>
 </form>
 
-<form ng-if="translatedWords.length > 0">
+<form ng-if="translatedWord.length > 0">
   <h1 class="text-center">Question #{{ questionNumber + 1 }}</h1>
   <h1 class="text-center">{{ newWord.start }}</h1>
-  <h2 class="text-center">{{ translatedWords[questionNumber] }}</h2>
+  <h2 class="text-center">{{ translatedWord[questionNumber] }}</h2>
 
-<form name="input-form">
+<form name="formInput">
   <div class="form-group">
     <label>Translated to {{ newWord.end }}:</label>
-    <input type="text" class="form-control" ng-model="userInput.guess" placeholder="User Name">
+      <input type="text" class="form-control" ng-model="userInput.guess" placeholder="Guess Translation">
     <button type="submit" class="btn btn-primary" ng-click="checkAnswer()">Submit Answer</button>
   </div>
 </form>

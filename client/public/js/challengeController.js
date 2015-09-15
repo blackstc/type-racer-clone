@@ -3,14 +3,15 @@ function($scope, $http, $routeParams) {
   var id = $routeParams.userID;
   $scope.start = true;
   var quizWords = [];
-  $scope.translatedWords = [];
+  $scope.translatedWord = [];
   $scope.questionNumber = 0;
+  $scope.userInput = {};
+  var correct = 0;
+  var incorrect = 0;
 
   $scope.createQuiz = function() {
     $scope.start = false;
-    for (var i = 0; i < quizWords.length; i++) {
-      $scope.translate(quizWords[i]);
-    }
+    $scope.translate(quizWords[$scope.questionNumber]);
   };
 
   //gets 20 random words to be used in the quiz
@@ -30,14 +31,30 @@ function($scope, $http, $routeParams) {
 
     $http.post("/api/v1/practice/" + id, payload)
     .success(function(data) {
-      $scope.translatedWords.push(data);
+      $scope.translatedWord.push(data);
     });
   };
 
   $scope.checkAnswer = function() {
-    console.log($scope.userInput);
-    // console.log(checkWord($scope.userInput.answer, quizWords[$scope.questionNumber]));
+    if (checkWord($scope.userInput.guess, quizWords[$scope.questionNumber])) {
+      update();
+      init();
+    } else {
+      incorrect++;
+      init();
+    }
   };
+
+  update = function() {
+    correct++;
+    $scope.questionNumber++;
+  };
+
+  init = function() {
+    $scope.userInput = {};
+    $scope.translate(quizWords[$scope.questionNumber]);
+  };
+
   //get request to grab all users in the database
   $scope.getUser = function() {
     $http.get('/api/v1/user/' + id)
