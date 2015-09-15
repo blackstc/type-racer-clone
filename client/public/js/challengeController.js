@@ -4,6 +4,7 @@ function($scope, $http, $routeParams) {
   $scope.start = true;
   var quizWords = [];
   $scope.translatedWords = [];
+  $scope.questionNumber = 0;
 
   $scope.createQuiz = function() {
     $scope.start = false;
@@ -33,6 +34,10 @@ function($scope, $http, $routeParams) {
     });
   };
 
+  $scope.checkAnswer = function() {
+    console.log($scope.userInput);
+    // console.log(checkWord($scope.userInput.answer, quizWords[$scope.questionNumber]));
+  };
   //get request to grab all users in the database
   $scope.getUser = function() {
     $http.get('/api/v1/user/' + id)

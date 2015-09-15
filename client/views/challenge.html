@@ -1,29 +1,38 @@
 <form ng-show="start">
   <h1>{{ user.name }}, prepare to be challenged... </h1>
   <br>
-    <h3>Select the starting and ending languges you want to be tested on</h3>
-    <div class="form-group">
-      <label for="sel1">Starting Language:</label>
-      <select ng-model="newWord.start" class="form-control" id="sel1">
-        <option value="en">English</option>
-        <option value="es">Spanish</option>
-        <option value="fr">French</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="sel1">Ending Language:</label>
-      <select ng-model="newWord.end" class="form-control" id="sel1">
-        <option value="en">English</option>
-        <option value="es">Spanish</option>
-        <option value="fr">French</option>
-      </select>
-    </div>
+  <h3>Select the starting and ending languges you want to be tested on</h3>
+  <div class="form-group">
+    <label for="sel1">Starting Language:</label>
+    <select ng-model="newWord.start" class="form-control" id="sel1">
+      <option value="en">English</option>
+      <option value="es">Spanish</option>
+      <option value="fr">French</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="sel1">Ending Language:</label>
+    <select ng-model="newWord.end" class="form-control" id="sel1">
+      <option value="en">English</option>
+      <option value="es">Spanish</option>
+      <option value="fr">French</option>
+    </select>
+  </div>
   <button type="submit" class="btn btn-primary" ng-click="createQuiz()">Start Challenge!</button>
   <a class="btn btn-default" href="/#/{{user._id}}">Back</a>
 </form>
 
-<form>
-    <ul>
-      <li ng-repeat="word in translatedWords">{{ word }}</li>
-    </ul>
+<form ng-if="translatedWords.length > 0">
+  <h1 class="text-center">Question #{{ questionNumber + 1 }}</h1>
+  <h1 class="text-center">{{ newWord.start }}</h1>
+  <h2 class="text-center">{{ translatedWords[questionNumber] }}</h2>
+
+<form name="input-form">
+  <div class="form-group">
+    <label>Translated to {{ newWord.end }}:</label>
+    <input type="text" class="form-control" ng-model="userInput.guess" placeholder="User Name">
+    <button type="submit" class="btn btn-primary" ng-click="checkAnswer()">Submit Answer</button>
+  </div>
+</form>
+
 </form>
