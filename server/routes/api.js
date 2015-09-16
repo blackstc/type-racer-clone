@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var mongoose = require('mongoose');
+var mongoose = require('mongoose-q')(require('mongoose'), {spread:true});
+// var mongoose = require('mongoose');
 var User = require('../database');
 var keys=require('../routes/key');
 var randomWords = require('random-words');
@@ -11,48 +12,46 @@ var bt = require('../../node_modules/bing-translate/lib/bing-translate.js').init
 });
 
 // get ALL users
-router.get('/users', function(req, res) {
-  User.find(function(err, users){
-    res.json(users);
-  });
+router.get('/users', function(req, res, next) {
+  User.findQ()
+    .then(function (result) { res.json(result);})
+    .catch(function (err) {res.send(err);})
+    .done();
 });
-
-// get SINGLE user
-router.get('/user/:id', function(req, res) {
-  var query = {"_id": req.params.id};
-  User.findOne(query, function(err, user){
-    res.json(user);
-  });
+//
+// // get SINGLE user
+router.get('/user/:id', function(req, res, next) {
+  User.findById(req.params.id)
+    .then(function(result) {res.json(result);})
+    .catch(function(err) {res.send(err);})
+    .done();
 });
 
 // post ALL users
-router.post('/users', function(req, res) {
-  new User(req.body)
-  .save(function(err, users) {
-    res.json({message: 'Success!'});
-  });
+router.post('/users', function(req, res, next) {
+  var newUser = new User({name: req.body.name});
+  newUser.saveQ()
+    .then(function (result) {res.json(result);})
+    .catch(function (err) {res.send(err);})
+    .done();
 });
 
 //update for single user
-router.put('/user/:id', function(req, res) {
-  var query = {"_id": req.params.id};
-  var update = req.body;
-  var options = {new: true};
-  User.findOneAndUpdate(query, update, options, function(err, user){
-    // console.log(superhero);
-    res.json(user);
-  });
+router.put('/user/:id', function(req, res, next) {
+  var update = {username: req.body.name};
+  User.findByIdAndUpdate(req.params.id, update)
+    .then(function(result) {res.json(result);})
+    .catch(function(err) {res.send(err);})
+    .done();
 });
-
 
 // delete for single user
-router.delete('/user/:id', function(req, res) {
-  var query = {"_id": req.params.id};
-  User.findOneAndRemove(query, function(err, user){
-    res.json(user);
-  });
+router.delete('/user/:id', function(req, res, next) {
+  User.findByIdAndRemove(req.params.id)
+    .then(function(result) {res.json(result);})
+    .catch(function(err) {res.send(err);})
+    .done();
 });
-
 
 //post request for word to be translated
 router.post("/practice/:id", function(req, res, next) {
