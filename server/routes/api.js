@@ -38,7 +38,8 @@ router.post('/users', function(req, res, next) {
 
 //update for single user
 router.put('/user/:id', function(req, res, next) {
-  var update = {username: req.body.name};
+  var update = req.body;
+  console.log(update);
   User.findByIdAndUpdate(req.params.id, update)
     .then(function(result) {res.json(result);})
     .catch(function(err) {res.send(err);})

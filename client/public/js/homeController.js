@@ -35,8 +35,6 @@ function($scope, $http) {
   //function to edit the superhero
   $scope.editUser = function() {
     var id = this.user._id;
-
-    //when edit button is clicked, add the data of the superhero to the input fields and delete the superhero from the database, because when the user clicks save, the new superhero will be added back with edited details
     $scope.newUser = {name: this.user.name};
     $("#first").focus();
     $http.delete('api/v1/user/' + id)

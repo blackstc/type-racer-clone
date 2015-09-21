@@ -27,12 +27,16 @@
   <h1 class="text-center">{{ newWord.start }}</h1>
   <h2 class="text-center">{{ translatedWord[questionNumber] }}</h2>
 
-<form name="formInput">
-  <div class="form-group">
-    <label>Translated to {{ newWord.end }}:</label>
+  <form name="formInput">
+    <div class="form-group">
+      <label>Translated to {{ newWord.end }}:</label>
       <input type="text" class="form-control" ng-model="userInput.guess" placeholder="Guess Translation">
+    </div>
     <button type="submit" class="btn btn-primary" ng-click="checkAnswer()">Submit Answer</button>
-  </div>
+  </form>
 </form>
 
-</form>
+<div ng-if="translatedWord.length > 1">
+  <div ng-show="correct" class="alert alert-success">Correct!</div>
+  <div ng-hide="correct" class="alert alert-danger">Incorrect! You suck!</div>
+</div>

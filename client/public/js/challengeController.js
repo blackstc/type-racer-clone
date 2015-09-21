@@ -6,11 +6,11 @@ function($scope, $http, $routeParams) {
   $scope.translatedWord = [];
   $scope.questionNumber = 0;
   $scope.userInput = {};
-  var correct = 0;
   var incorrect = 0;
 
   $scope.createQuiz = function() {
     $scope.start = false;
+    $scope.user.challengesTaken++;
     $scope.translate(quizWords[$scope.questionNumber]);
   };
 
@@ -37,22 +37,95 @@ function($scope, $http, $routeParams) {
 
   $scope.checkAnswer = function() {
     if (checkWord($scope.userInput.guess, quizWords[$scope.questionNumber])) {
-      update();
+      updateCorrect();
       init();
     } else {
-      incorrect++;
+      updateIncorrect();
       init();
     }
   };
 
-  update = function() {
-    correct++;
+  updateCorrect = function() {
+    $scope.questionNumber++;
+    $scope.correct = true;
+  };
+
+  updateIncorrect = function() {
+    incorrect++;
+    $scope.correct = false;
     $scope.questionNumber++;
   };
 
   init = function() {
-    $scope.userInput = {};
-    $scope.translate(quizWords[$scope.questionNumber]);
+    if (incorrect < 5  && $scope.translatedWord.length < 20) {
+      $scope.userInput = {};
+      $scope.translate(quizWords[$scope.questionNumber]);
+    } else if (incorrect === 5) {
+      updateLoss();
+    } else {
+      updateComplete();
+    }
+  };
+
+  updateLoss = function() {
+    $scope.loss = true;
+    var challengesTaken = 0;
+    var words = 0;
+    var challengesPassed = 0;
+    var challengesFailed = 0;
+
+    if ($scope.user.words === undefined) {
+      challengesTaken = 1;
+      challengesFailed = 1;
+      words = $scope.translatedWord.length;
+    } else {
+      challengesTaken = $scope.user.challengesTaken += 1;
+      challengesPassed = $scope.user.challengesPassed;
+      challengesFailed = $scope.user.challengesFailed += 1;
+      words = $scope.user.words += $scope.translatedWord.length;
+    }
+
+    var update = {
+      challengesTaken: challengesTaken,
+      challengesPassed: challengesPassed,
+      challengesFailed: challengesFailed,
+      words: words
+    };
+
+    $http.put('/api/v1/user/' + id, update)
+    .success(function(data) {
+    });
+  };
+
+  updateComplete = function() {
+    $scope.complete = true;
+    var challengesTaken = 0;
+    var words = 0;
+    var challengesPassed = 0;
+    var challengesFailed = 0;
+
+    if ($scope.user.words === undefined) {
+      challengesTaken = 1;
+      challengesPassed = 1;
+      challengesFailed = 0;
+      words = $scope.translatedWord.length;
+    } else {
+      challengesTaken = $scope.user.challengesTaken += 1;
+      challengesPassed = $scope.user.challengesPassed += 1;
+      challengesFailed = $scope.user.challengesFailed;
+      words = $scope.user.words += $scope.translatedWord.length;
+    }
+
+    var update = {
+      challengesTaken: challengesTaken,
+      challengesPassed: challengesPassed,
+      challengesFailed: challengesFailed,
+      words: words
+    };
+
+    $http.put('/api/v1/user/' + id, update)
+    .success(function(data) {
+    });
   };
 
   //get request to grab all users in the database
