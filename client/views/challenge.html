@@ -22,7 +22,7 @@
   <a class="btn btn-default" href="/#/{{user._id}}">Back</a>
 </form>
 
-<form ng-if="translatedWord.length > 0">
+<form ng-if="translatedWord.length > 0" ng-hide="complete" ng-hide="failed">
   <h1 class="text-center">Question #{{ questionNumber + 1 }}</h1>
   <h1 class="text-center">{{ newWord.start }}</h1>
   <h2 class="text-center">{{ translatedWord[questionNumber] }}</h2>
@@ -36,7 +36,22 @@
   </form>
 </form>
 
-<div ng-if="translatedWord.length > 1">
+<br>
+
+<div ng-if="translatedWord.length > 1" ng-hide="complete" ng-hide="failed">
+  <audio preload="auto" src="/Users/Chuck/gSchool/projects/translator/client/public/js/04001077.mp3" autoplay></audio>
   <div ng-show="correct" class="alert alert-success">Correct!</div>
-  <div ng-hide="correct" class="alert alert-danger">Incorrect! You suck!</div>
+  <div ng-hide="correct" class="alert alert-danger">Incorrect! You suck! The Correct word was {{ quizWords[questionNumber - 1]}}</div>
+</div>
+
+<div class="jumbotron text-center" ng-show="failed">
+  <h1>{{ user.name }}, you have FAILED the challenge.</h1>
+  <img src="http://gifsec.com/wp-content/uploads/GIF/2014/03/You-suck-GIF.gif?gs=a" alt="you suck"/><br><br>
+  <a class="btn btn-danger" href="/#/{{user._id}}">Back to profile</a>
+</div>
+
+<div class="jumbotron text-center" ng-show="complete">
+  <h1>{{ user.name }}, you have PASSED the challenge.</h1>
+  <img src="https://media.giphy.com/media/Z7bxVQl7nWes/giphy.gif" alt="celebration"/><br><br>
+  <a class="btn btn-success" href="/#/{{user._id}}">Back to profile</a>
 </div>

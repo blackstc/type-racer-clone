@@ -1,24 +1,26 @@
 angular.module("myApp").controller("ChallengeController", ["$scope", "$http", "$routeParams",
 function($scope, $http, $routeParams) {
+
   var id = $routeParams.userID;
   $scope.start = true;
-  var quizWords = [];
+  $scope.quizWords = [];
   $scope.translatedWord = [];
   $scope.questionNumber = 0;
   $scope.userInput = {};
   var incorrect = 0;
 
+
   $scope.createQuiz = function() {
     $scope.start = false;
     $scope.user.challengesTaken++;
-    $scope.translate(quizWords[$scope.questionNumber]);
+    $scope.translate($scope.quizWords[$scope.questionNumber]);
   };
 
   //gets 20 random words to be used in the quiz
   getRandomWords = function() {
     $http.get('/api/v1/challenge/' + id)
     .success(function(data) {
-      quizWords = data;
+      $scope.quizWords = data;
     });
   };
 
@@ -36,7 +38,7 @@ function($scope, $http, $routeParams) {
   };
 
   $scope.checkAnswer = function() {
-    if (checkWord($scope.userInput.guess, quizWords[$scope.questionNumber])) {
+    if (checkWord($scope.userInput.guess, $scope.quizWords[$scope.questionNumber])) {
       updateCorrect();
       init();
     } else {
@@ -57,9 +59,9 @@ function($scope, $http, $routeParams) {
   };
 
   init = function() {
-    if (incorrect < 5  && $scope.translatedWord.length < 20) {
+    if (incorrect < 5  && $scope.translatedWord.length < 1  ) {
       $scope.userInput = {};
-      $scope.translate(quizWords[$scope.questionNumber]);
+      $scope.translate($scope.quizWords[$scope.questionNumber]);
     } else if (incorrect === 5) {
       updateLoss();
     } else {
@@ -68,7 +70,7 @@ function($scope, $http, $routeParams) {
   };
 
   updateLoss = function() {
-    $scope.loss = true;
+    $scope.failed = true;
     var challengesTaken = 0;
     var words = 0;
     var challengesPassed = 0;

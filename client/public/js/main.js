@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp', ['ngRoute']);
+var myApp = angular.module('myApp', ['ngRoute', 'ngAudio']);
 angular.module('myModule', ['ui.bootstrap']);
 
 myApp.config(function($routeProvider) {
