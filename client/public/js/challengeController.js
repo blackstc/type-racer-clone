@@ -59,7 +59,7 @@ function($scope, $http, $routeParams) {
   };
 
   init = function() {
-    if (incorrect < 5  && $scope.translatedWord.length < 1  ) {
+    if (incorrect < 5  && $scope.translatedWord.length < 10) {
       $scope.userInput = {};
       $scope.translate($scope.quizWords[$scope.questionNumber]);
     } else if (incorrect === 5) {
