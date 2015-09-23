@@ -4,12 +4,6 @@ var Schema   = mongoose.Schema;
 var User = new Schema(
   {
     name: String,
-    challengesTaken: Number,
-    challengesPassed: Number,
-    challengesFailed: Number,
-    words: Number,
-    wordsCorrect: Array,
-    wordsIncorrect: Array
   }
 );
 
