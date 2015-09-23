@@ -13,8 +13,12 @@ router.get('/users', function(req, res, next) {
     .catch(function (err) {res.send(err);})
     .done();
 });
-//
 
+//get 20 random words and send them back as json
+router.get('words', function(req, res, next) {
+  var wordsArr = randomWords(20);
+  res.json(wordsArr);
+});
 
 
 module.exports = router;
