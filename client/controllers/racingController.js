@@ -1,9 +1,13 @@
-angular.module("app").controller("RacingController", ["$scope", "racingFactory", function($scope, racingFactory) {
-  $scope.words = [];
+angular.module("app").controller("RacingController", ["$scope", "$http",  function($scope, $http) {
+  // $scope.words = [];
 
   //factory call to grab 20 random words from the NPM
-  racingFactory.getWords()
+  // racingFactory.getWords()
+  // .success(function(data) {
+  //   console.log(data);
+  // });
+  $http.get("/api/v1/words")
   .success(function(data) {
-    console.log(data);
+    $scope.words = data;
   });
 }]);

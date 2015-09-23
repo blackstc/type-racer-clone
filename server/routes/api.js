@@ -15,7 +15,7 @@ router.get('/users', function(req, res, next) {
 });
 
 //get 20 random words and send them back as json
-router.get('words', function(req, res, next) {
+router.get('/words', function(req, res, next) {
   var wordsArr = randomWords(20);
   res.json(wordsArr);
 });
