@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose-q')(require('mongoose'), {spread:true});
 // var mongoose = require('mongoose');
-var User = require('../database');
+var User = require('../models/user');
 var keys=require('../routes/key');
 var randomWords = require('random-words');
 
@@ -39,7 +39,6 @@ router.post('/users', function(req, res, next) {
 //update for single user
 router.put('/user/:id', function(req, res, next) {
   var update = req.body;
-  console.log(update);
   User.findByIdAndUpdate(req.params.id, update)
     .then(function(result) {res.json(result);})
     .catch(function(err) {res.send(err);})

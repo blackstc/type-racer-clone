@@ -1,18 +1,20 @@
-angular.module("myApp").controller("UserController", ["$scope", "$http",
-function($scope, $http) {
+angular.module("myApp").controller("UserController", ["$scope", "$http", "myFactory",
+function($scope, $http, myFactory) {
+  $scope.edit = false;
 
   //get request to grab all users in the database
   $scope.getUsers = function() {
-    $http.get('/api/v1/users')
+    myFactory.getAllUsers()
     .success(function(data) {
       $scope.users = data;
     });
+    $scope.edit = false;
   };
 
   $scope.getUsers();
 
   $scope.addUser = function() {
-    $http.post('api/v1/users', $scope.newUser)
+    myFactory.postNewUser($scope.newUser)
     .success(function(data) {
       $scope.users = data;
       $scope.getUsers();
@@ -22,23 +24,26 @@ function($scope, $http) {
     });
   };
 
-  //function to delete hero whose button was clicked
+  //function to delete user whose button was clicked
   $scope.deleteUser = function() {
-    //get the id of the superhero who was clicked to be deleted
     var id = this.user._id;
-    $http.delete('api/v1/user/' + id)
+    myFactory.deleteUser(id)
     .success(function(data) {
       $scope.getUsers();
     });
   };
 
-  //function to edit the superhero
-  $scope.editUser = function() {
-    var id = this.user._id;
+  //function to edit the User
+  $scope.editForm = function() {
+    $scope.edit = true;
     $scope.newUser = {name: this.user.name};
     $("#first").focus();
-    $http.delete('api/v1/user/' + id)
-    .success(function(data) {
-    });
+    var id = this.user._id;
+    $scope.editUser = function() {
+      myFactory.editUser(id, $scope.newUser)
+      .success(function(data) {
+        $scope.getUsers();
+      });
+    };
   };
 }]);

@@ -5,7 +5,8 @@
     <label><h3>User Name</h3></label>
     <input type="text" id="first" class="form-control" ng-model="newUser.name" placeholder="User Name">
   </div>
-  <button type="submit" class="btn btn-primary" ng-click="addUser()">Save User</button>
+  <button ng-hide="edit" type="submit" class="btn btn-primary" ng-click="addUser()">Save User</button>
+  <button ng-show="edit" type="submit" class="btn btn-primary" ng-click="editUser()">Save Edit</button>
 </form>
 
 <hr><br>
@@ -24,7 +25,7 @@
       <tr ng-repeat="user in users| filter:nameText">
         <td><a href="/#/{{user._id}}">{{ user.name }}</a></td>
         <td>
-          <button type="button" name="edit-button" ng-click="editUser()" class="btn btn-success btn-xs">Edit</button>
+          <button type="button" name="edit-button" ng-click="editForm()" class="btn btn-success btn-xs">Edit</button>
           <button type="button" name="delete-button" ng-click="deleteUser()" class="btn btn-danger btn-xs">X</button>
         </td>
       </tr>
