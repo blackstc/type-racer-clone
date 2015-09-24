@@ -30,13 +30,14 @@
 <!-- Page Content -->
 <div class="container">
 
-  <div class="randomWords">
+  <ul class="list-inline">
     <!-- random list of words show up here -->
-    <div ng-repeat="word in words">{{ word }}</div>
+    <li ng-repeat="word in words">{{ word }}</li>
+  </ul>
   </div>
 
   <div class="inputBox">
-  <input type="text" class="userInput" placeholder="Type the words shown above...">
+  <input ng-model="userInput" type="text" class="userInput" placeholder="Type the words shown above...">
   </div>
 
     <!-- Footer -->
