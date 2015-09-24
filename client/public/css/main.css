@@ -65,3 +65,7 @@ input {
 .list-inline{
   margin-top: 50px;
 }
+
+.current {
+  color: red;
+}
