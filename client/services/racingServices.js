@@ -4,4 +4,6 @@ app.factory("racingFactory", ["$http", function($http) {
   object.getWords = function() {
     return $http.get("/api/v1/words");
   };
+
+  return object;
 }]);
