@@ -37,7 +37,7 @@
   </div>
 
   <div class="inputBox">
-  <input ng-model="userInput" type="text" class="userInput" placeholder="Type the words shown above...">
+  <input ng-model="user.input" ng-keypress="keyPress($event.keyCode)" type="text" class="userInput" placeholder="Type the words shown above...">
   </div>
 
     <!-- Footer -->
