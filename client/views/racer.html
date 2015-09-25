@@ -30,9 +30,9 @@
 <!-- Page Content -->
 <div class="container">
 
-  <ul class="list-inline" ng-init="currentIndex=0">
+  <ul class="list-inline">
     <!-- random list of words show up here -->
-    <li ng-class="{current: (currentWordIndex===$index), inCorret: inCorret === true}" ng-repeat="word in words">{{ word }}</li>
+    <li ng-class="{current: (currentWordIndex===$index), correct: correctWords.indexOf($index) !== -1, incorrect: incorrectWords.indexOf($index) !== -1}" ng-repeat="word in words">{{ word }}</li>
   </ul>
   </div>
 

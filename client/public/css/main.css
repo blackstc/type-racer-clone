@@ -67,5 +67,17 @@ input {
 }
 
 .current {
+  background-color: lightgrey;
+}
+
+.correct {
+  color: green;
+}
+
+.incorrect {
   color: red;
+}
+
+.mispelled {
+  background-color: red;
 }
