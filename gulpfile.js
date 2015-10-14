@@ -4,8 +4,9 @@ var connect = require('gulp-connect');
 // configure connect task
 gulp.task('connect', function() {
   connect.server({
-    // root: './server/bin/www', // update path!!
-    livereload: true
+    root: __dirname, // update path!!
+    livereload: true,
+    fallback: "client/views/index.html"
   });
 });
 
@@ -16,7 +17,7 @@ gulp.task('html', function () {
 
 // configure which files to watch and what tasks to use on file changes
 gulp.task('watch', function() {
-  gulp.watch(['./client/public/views/*.html'], ['html']);
+  gulp.watch(['./client/public/*.html'], ['html']);
 });
 
 // default task!
